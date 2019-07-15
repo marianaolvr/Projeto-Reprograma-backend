@@ -4,7 +4,7 @@ const controller = require('./reclamacoesController')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mailer = require('nodemailer')
-const PORT = 3003
+const PORT = process.env.PORT || 4003
 
 server.use(cors())
 server.use(bodyParser.json())
