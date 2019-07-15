@@ -3,7 +3,7 @@ const server = express()
 const controller = require('./reclamacoesController')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const mailer = require('nodemailer')
+const nodemailer = require('nodemailer')
 // const client = require('rest-client')
 // const json = require ('json')
 const PORT = process.env.PORT || 3003
@@ -12,13 +12,27 @@ server.use(cors())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }));
 
+server.get('/', (request, response) => {
+  response.send('./')
+})
+
+const config = {
+  host: 'smtp.mailtrap.io',
+    port: 2525,
+    auth: {
+      user: 'ed006aa38b6dc9',
+      pass: 'b6a07eead55613' //this is a var stored in heroku, i dont recommend keeping a password string here
+    }
+}
+
+const transporter = nodemailer.createTransport(config)
 
 server.get("/reclamacoes", async (request, response) => {
   controller.getAll()
     .then(listaDeReclamacoes => response.send(listaDeReclamacoes))
 })
 
-server.post("/reclamacoes/send-email", async (request, response) => {
+server.post("/reclamacoes/send-email", (request, response) => {
   controller.add(request.body)
     .then(listaDeReclamacoes => response.send(listaDeReclamacoes))
 
@@ -43,28 +57,20 @@ server.post("/reclamacoes/send-email", async (request, response) => {
       subject: 'Escola não cumpre a Lei Federal 11.645'
   };
 
-  var transporter = mailer.createTransport({
-    host: 'smtp.mailtrap.io',
-    port: 2525,
-    auth: {
-      user: 'ed006aa38b6dc9',
-      pass: 'b6a07eead55613' //this is a var stored in heroku, i dont recommend keeping a password string here
-    }
-  });
-
   transporter.sendMail({
     from: `${email}`,
     to: 'olvr.mariana@gmail.com',
     subject: composedMessage.subject,
     text: composedMessage.text
   }, (error, info) => {
-    if (error) {
-      return console.log(error);
-    } else {
-      res.redirect('/reclamacoes');
-    }
-  });
+    if(error){
+      return response.status(400).send('falhou')
+   }
 
+   return response.status(200).send('enviou')
+})
+
+return response.sendStatus(200).end()
 });
 
 // response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['e1da925188bbca3e061a3cc315943edc']}").get
