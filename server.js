@@ -12,10 +12,6 @@ server.use(cors())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.get('/', (request, response) => {
-  response.send('./')
-})
-
 const config = {
   host: 'smtp.mailtrap.io',
     port: 2525,
