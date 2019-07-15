@@ -45,8 +45,8 @@ server.post("/reclamacoes/send-email", async (request, response) => {
     host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: 'f2de8405dbabe3',
-      pass: '824eb357956cf3' //this is a var stored in heroku, i dont recommend keeping a password string here
+      user: 'ed006aa38b6dc9',
+      pass: 'b6a07eead55613' //this is a var stored in heroku, i dont recommend keeping a password string here
     }
   });
 
