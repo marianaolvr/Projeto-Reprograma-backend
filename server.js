@@ -12,7 +12,7 @@ server.use(cors())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }));
 
-response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}").get
+response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['e1da925188bbca3e061a3cc315943edc']}").get
 
 first_inbox = JSON.parse(response)[0]
 
