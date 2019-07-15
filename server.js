@@ -4,8 +4,8 @@ const controller = require('./reclamacoesController')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mailer = require('nodemailer')
-const client = require('rest-client')
-const json = require ('json')
+// const client = require('rest-client')
+// const json = require ('json')
 const PORT = process.env.PORT || 3003
 
 server.use(cors())
@@ -67,20 +67,20 @@ server.post("/reclamacoes/send-email", async (request, response) => {
 
 });
 
-response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['e1da925188bbca3e061a3cc315943edc']}").get
+// response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['e1da925188bbca3e061a3cc315943edc']}").get
 
-first_inbox = JSON.parse(response)[0]
+// first_inbox = JSON.parse(response)[0]
 
-  mailer.Base.delivery_method = smtp
-  mailer.Base.smtp_settings = {
+//   mailer.Base.delivery_method = smtp
+//   mailer.Base.smtp_settings = {
 
-user_name = () => first_inbox['username'],
-password = () => first_inbox['password'],
-address = () => first_inbox['domain'],
-domain =() => first_inbox['domain'],
-port = () => first_inbox['smtp_ports'][0],
-authentication = () => plain
-}
+// user_name = () => first_inbox['username'],
+// password = () => first_inbox['password'],
+// address = () => first_inbox['domain'],
+// domain =() => first_inbox['domain'],
+// port = () => first_inbox['smtp_ports'][0],
+// authentication = () => plain
+// }
 
 
 
