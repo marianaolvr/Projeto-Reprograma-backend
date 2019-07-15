@@ -20,8 +20,8 @@ const config = {
   host: 'smtp.mailtrap.io',
     port: 2525,
     auth: {
-      user: 'ed006aa38b6dc9',
-      pass: 'b6a07eead55613' //this is a var stored in heroku, i dont recommend keeping a password string here
+      user: '2eb62da7bda58c',
+      pass: '53ac1342852912' //this is a var stored in heroku, i dont recommend keeping a password string here
     }
 }
 
