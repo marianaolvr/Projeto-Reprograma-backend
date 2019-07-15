@@ -4,11 +4,28 @@ const controller = require('./reclamacoesController')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mailer = require('nodemailer')
+const client = require('rest-client')
+const json = require ('json')
 const PORT = process.env.PORT || 3003
 
 server.use(cors())
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }));
+
+response = RestClient.Resource.new("https://mailtrap.io/api/v1/inboxes.json?api_token=#{ENV['MAILTRAP_API_TOKEN']}").get
+
+first_inbox = JSON.parse(response)[0]
+
+  ActionMailer.Base.delivery_method = smtp
+  ActionMailer.Base.smtp_settings = {
+
+user_name = () => first_inbox['username'],
+password = () => first_inbox['password'],
+address = () => first_inbox['domain'],
+domain =() => first_inbox['domain'],
+port = () => first_inbox['smtp_ports'][0],
+authentication = () => plain
+}
 
 
 server.get("/reclamacoes", async (request, response) => {
@@ -64,6 +81,8 @@ server.post("/reclamacoes/send-email", async (request, response) => {
   });
 
 });
+
+
 
 server.listen(PORT)
 console.info(`Rodando na porta ${PORT}`)
